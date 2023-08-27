@@ -10,7 +10,7 @@ function App() {
     setBlocklist([...blocklist, {block:""}])
   }
   return (
-    <div className="">
+    <div className="container-body">
       {blocklist.map((singleBlock, index)=> (
           <Block key={index} handleBlockAdd={handleBlockAdd} index={index}/>
       ))}
