@@ -47,13 +47,9 @@ function Block({index,handleBlockAdd}) {
 
     // }, [])
 
-    const positonX = Math.floor(Math.random()*50)+'%';
-    console.log(positonX);
-    const positionY = '50%';
-    console.log(positionY);
     const blockPostion = useRef({
-        top: {positonX},
-        left: "'"+{positionY}+"'",
+        top: Math.floor(Math.random()*900),
+        left: Math.floor(Math.random()*2000),
         transform: 'translate(0%, 0%)'
     });
     return(
