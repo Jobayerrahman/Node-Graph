@@ -36,3 +36,7 @@ body {
   color: #fff;
   cursor: pointer;
 }
+
+.block-click{
+  cursor: grab;
+}

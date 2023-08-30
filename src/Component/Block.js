@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
 function Block({index,handleBlockAdd}) {
 
@@ -47,13 +47,21 @@ function Block({index,handleBlockAdd}) {
 
     // }, [])
 
+    const [clickStyle, setClickStyle] = useState('');
+    const [isClicked, setIsClicked] = useState(false);
     const blockPostion = useRef({
         top: Math.floor(Math.random()*900),
         left: Math.floor(Math.random()*2000),
         transform: 'translate(0%, 0%)'
     });
+
+    const handleClick =(e)=>{
+        console.log('U R I M P R O V I N G !')
+        setClickStyle("block-click");
+        setIsClicked(true);
+    }
     return(
-        <div className='block-wrapper' style={blockPostion.current}>
+        <div onClick={handleClick} className={isClicked? ('block-wrapper '+clickStyle) : 'block-wrapper'} style={blockPostion.current}>
             <p>{index}</p>
             <button onClick={handleBlockAdd}>Add +</button>
         </div>
