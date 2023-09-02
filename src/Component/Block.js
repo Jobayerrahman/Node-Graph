@@ -56,43 +56,70 @@ function Block({index,handleBlockAdd}) {
         transform: 'translate(0%, 0%)'
     });
 
-    const handleEvent =(e)=>{
-        if(e.type === 'mousedown'){
-            setIsClicked(true);
-            // setClickStyle("block-grap")
-            console.log("mouse down hoice!");
-            const block  = blockRef.current;
-            block.style.backgroundColor="#D94A38"
-            block.style.cursor= "grab";
-        }else{
-            setIsClicked(false);
-            console.log("mouse up hoice!");
-            const block  = blockRef.current;
-            block.style.backgroundColor=""
-            block.style.cursor= "";
-        }
-    }
-
-    // useEffect(()=>{
-    //     blockRef.current.addEventListener('mousedown',(e)=>{
-    //             console.log("mouse down hoice add!");
-    //             setIsClicked(true);
-    //             setClickStyle("block-grap");
-    //             const block  = blockRef.current;
-    //             block.style.backgroundColor="#D94A38"
-    //     });
-
-    //     blockRef.current.addEventListener("mouseup",()=>{
-    //         console.log("mouse up hoice add!");
+    // const handleEvent =(e)=>{
+    //     if(e.type === 'mousedown'){
+    //         setIsClicked(true);
+    //         // setClickStyle("block-grap")
+    //         console.log("mouse down hoice!");
+    //         const block  = blockRef.current;
+    //         block.style.backgroundColor="#D94A38"
+    //         block.style.cursor= "grab";
+    //     }else{
     //         setIsClicked(false);
+    //         console.log("mouse up hoice!");
     //         const block  = blockRef.current;
     //         block.style.backgroundColor=""
-    //     });
+    //         block.style.cursor= "";
+    //     }
+    // }
 
-    // },[blockRef.current])
+    useEffect(()=>{
+
+        const handleMouseDownEvent = (e) => {
+                console.log("mouse down!");
+                setIsClicked(true);
+                setClickStyle("block-grap");
+                const block  = blockRef.current;
+                block.style.backgroundColor="#D94A38";
+
+                const handleMosueMoveEvent = (e) =>{
+                    let getstyle = window.getComputedStyle(blockRef.current);
+                    let left = parseInt(getstyle.left);
+                    let top = parseInt(getstyle.top);
+                    blockRef.current.style.left = `${left+e.movementX}px`;
+                    blockRef.current.style.top  = `${top+e.movementY}px`;
+                }
+
+                blockRef.current.addEventListener("mousemove",handleMosueMoveEvent);
+        }
+
+        const handleMosueUpEvent = (e) =>{
+            console.log("mouse up!");
+            setIsClicked(false);
+            const block  = blockRef.current;
+            block.style.backgroundColor=""
+        }
+
+        blockRef.current.addEventListener('mousedown',handleMouseDownEvent);
+        blockRef.current.addEventListener("mouseup",handleMosueUpEvent);
+        blockRef.current.addEventListener("mouseleave",handleMosueUpEvent);
+
+        const cleanup = () =>{
+            blockRef.current.removeEventListener('mousedown',handleMouseDownEvent);
+            blockRef.current.removeEventListener("mouseup",handleMosueUpEvent);
+            blockRef.current.removeEventListener("mouseleave",handleMosueUpEvent);
+        }
+
+        return cleanup;
+
+    },[blockRef.current])
 
     return(
-        <div ref={blockRef} onMouseDown={handleEvent} onMouseUp={handleEvent} className={isClicked? ('block-wrapper '+clickStyle) : 'block-wrapper'} style={blockPostion.current}>
+        <div 
+            ref={blockRef} 
+            className={isClicked? ('block-wrapper '+clickStyle) : 'block-wrapper'} 
+            style={blockPostion.current}
+        >
             <p>{index}</p>
             <button onClick={handleBlockAdd}>Add +</button>
         </div>
