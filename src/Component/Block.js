@@ -74,28 +74,29 @@ function Block({index,handleBlockAdd}) {
     // }
 
     useEffect(()=>{
+        const handleMosueMoveEvent = (e) =>{
+            let getstyle = window.getComputedStyle(blockRef.current);
+            let left = parseInt(getstyle.left);
+            let top = parseInt(getstyle.top);
+            blockRef.current.style.left = `${left+e.movementX}px`;
+            blockRef.current.style.top  = `${top+e.movementY}px`;
+            console.log(blockRef.current.style.left );
+            console.log(blockRef.current.style.left );
+        }
 
         const handleMouseDownEvent = (e) => {
                 console.log("mouse down!");
                 setIsClicked(true);
+                blockRef.current.addEventListener("mousemove",handleMosueMoveEvent);
                 setClickStyle("block-grap");
                 const block  = blockRef.current;
                 block.style.backgroundColor="#D94A38";
-
-                const handleMosueMoveEvent = (e) =>{
-                    let getstyle = window.getComputedStyle(blockRef.current);
-                    let left = parseInt(getstyle.left);
-                    let top = parseInt(getstyle.top);
-                    blockRef.current.style.left = `${left+e.movementX}px`;
-                    blockRef.current.style.top  = `${top+e.movementY}px`;
-                }
-
-                blockRef.current.addEventListener("mousemove",handleMosueMoveEvent);
         }
 
         const handleMosueUpEvent = (e) =>{
             console.log("mouse up!");
             setIsClicked(false);
+            blockRef.current.removeEventListener("mousemove",handleMosueMoveEvent);
             const block  = blockRef.current;
             block.style.backgroundColor=""
         }
@@ -108,6 +109,7 @@ function Block({index,handleBlockAdd}) {
             blockRef.current.removeEventListener('mousedown',handleMouseDownEvent);
             blockRef.current.removeEventListener("mouseup",handleMosueUpEvent);
             blockRef.current.removeEventListener("mouseleave",handleMosueUpEvent);
+            blockRef.current.removeEventListener("mousemove",handleMosueMoveEvent);
         }
 
         return cleanup;
