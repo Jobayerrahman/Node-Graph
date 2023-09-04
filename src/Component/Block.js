@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
+import Line from './Line';
 function Block({index,handleBlockAdd}) {
 
     // const containerRef  = useRef(null);
@@ -85,7 +86,6 @@ function Block({index,handleBlockAdd}) {
         }
 
         const handleMouseDownEvent = (e) => {
-                console.log("mouse down!");
                 setIsClicked(true);
                 blockRef.current.addEventListener("mousemove",handleMosueMoveEvent);
                 setClickStyle("block-grap");
@@ -94,7 +94,6 @@ function Block({index,handleBlockAdd}) {
         }
 
         const handleMosueUpEvent = (e) =>{
-            console.log("mouse up!");
             setIsClicked(false);
             blockRef.current.removeEventListener("mousemove",handleMosueMoveEvent);
             const block  = blockRef.current;
@@ -117,14 +116,17 @@ function Block({index,handleBlockAdd}) {
     },[blockRef.current])
 
     return(
-        <div 
-            ref={blockRef} 
-            className={isClicked? ('block-wrapper '+clickStyle) : 'block-wrapper'} 
-            style={blockPostion.current}
-        >
-            <p>{index}</p>
-            <button onClick={handleBlockAdd}>Add +</button>
-        </div>
+        <>
+            <div 
+                ref={blockRef} 
+                className={isClicked? ('block-wrapper '+clickStyle) : 'block-wrapper'} 
+                style={blockPostion.current}
+            >
+                <p>{index}</p>
+                <button onClick={handleBlockAdd}>Add +</button>
+            </div>
+            <Line width={blockPostion.current.left} height={blockPostion.current.top}/>
+        </>
     );
 }
 

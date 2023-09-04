@@ -40,3 +40,8 @@ body {
 .block-grap{
   cursor: grab;
 }
+
+.line-contianer{
+  width: 100%;
+  height: 100%;
+}
