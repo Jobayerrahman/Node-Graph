@@ -50,6 +50,8 @@ function Block({index,handleBlockAdd}) {
 
 
     const [clickStyle, setClickStyle] = useState('');
+    const [currenLeft, setCurrentLeft] = useState('');
+    const [currentTop, setCurrentTop] = useState('');
     const [isClicked, setIsClicked] = useState(false);
     const blockPostion = useRef({
         top: Math.floor(Math.random()*900),
@@ -81,8 +83,8 @@ function Block({index,handleBlockAdd}) {
             let top = parseInt(getstyle.top);
             blockRef.current.style.left = `${left+e.movementX}px`;
             blockRef.current.style.top  = `${top+e.movementY}px`;
-            console.log(blockRef.current.style.left );
-            console.log(blockRef.current.style.left );
+            setCurrentLeft(blockRef.current.style.left );
+            setCurrentTop(blockRef.current.style.left );
         }
 
         const handleMouseDownEvent = (e) => {
@@ -125,7 +127,6 @@ function Block({index,handleBlockAdd}) {
                 <p>{index}</p>
                 <button onClick={handleBlockAdd}>Add +</button>
             </div>
-            <Line width={blockPostion.current.left} height={blockPostion.current.top}/>
         </>
     );
 }
