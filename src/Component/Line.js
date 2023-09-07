@@ -3,10 +3,6 @@ import { useRef, useEffect } from 'react';
 
 function Line(props) {
     const lineRef = useRef(null);
-
-    const left = Math.floor(Math.random()*400);
-    const top  = Math.floor(Math.random()*700);
-    console.log(left+" "+top)
     useEffect(() => {
         const canvas = lineRef.current;
         console.log(canvas);
@@ -23,17 +19,13 @@ function Line(props) {
           ctx.moveTo(0,0);
 
         // Define an end point
-          ctx.lineTo(top, left);
+          ctx.lineTo(props.width, props.height);
 
          // Draw it
           ctx.stroke();
       }, []);
 
-    return (
-        <div className='line-contianer'>
-            <canvas  ref={lineRef} width={props.width} height={props.height}  />
-        </div>
-    );
+    return (<canvas  ref={lineRef} width={props.width} height={props.height}  />);
 }
 
 export default Line;

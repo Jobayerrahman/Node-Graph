@@ -11,16 +11,13 @@ function App() {
 
   const handleBlockAdd = () => {
     setBlocklist([...blocklist, {block:""}])
-    setLineList([...lineList, {line:""}])
+    setLineList([ {line:""}])
   }
 
   return (
     <div className="container-body">
       {blocklist.map((singleBlock, index)=> (
-          <Block key={index} handleBlockAdd={handleBlockAdd} index={index}/>
-      ))}
-      {lineList.map((singleLine, index)=>(
-        <Line/>
+          <Block key={index} handleBlockAdd={handleBlockAdd} index={index} lineList={lineList}/>
       ))}
     </div>
   );

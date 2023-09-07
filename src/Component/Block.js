@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import Line from './Line';
-function Block({index,handleBlockAdd}) {
+function Block({index,handleBlockAdd,lineList}) {
 
     // const containerRef  = useRef(null);
     const blockRef      = useRef(null);
@@ -127,6 +127,9 @@ function Block({index,handleBlockAdd}) {
                 <p>{index}</p>
                 <button onClick={handleBlockAdd}>Add +</button>
             </div>
+            {lineList.map((singleLine, index)=>(
+                <Line width={blockPostion.current.left} height={blockPostion.current.top+100}/>
+            ))}
         </>
     );
 }
